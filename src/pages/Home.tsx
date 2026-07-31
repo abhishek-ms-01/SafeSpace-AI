@@ -11,6 +11,12 @@ const STEPS = [
   { icon: '📄', title: 'Generate your report', desc: 'Download a structured report and access safety resources.' },
 ]
 
+const TRUST_PILLS = [
+  { icon: '🔒', title: '100% Anonymous', desc: 'No account needed' },
+  { icon: '🚫', title: 'No Login Required', desc: 'Access immediately' },
+  { icon: '🛡️', title: 'Data Stays On Your Device', desc: 'Nothing is uploaded' },
+]
+
 const CONTAINER = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
@@ -22,85 +28,97 @@ const ITEM = {
 
 export function Home({ onStart }: HomeProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
       <motion.div
-        className="w-full max-w-2xl"
+        className="w-full max-w-4xl z-10"
         variants={CONTAINER}
         initial="hidden"
         animate="show"
       >
-        {/* Hero */}
-        <motion.div variants={ITEM} className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-500 text-white text-3xl mb-5 shadow-lg">
-            🛡
+        {/* Support Pill Badge */}
+        <motion.div variants={ITEM} className="flex justify-center mb-6">
+          <div className="
+            inline-flex items-center gap-2 px-4 py-1.5 rounded-full
+            bg-primary-50/80 dark:bg-primary-950/20
+            border border-primary-200/50 dark:border-primary-800/30
+            backdrop-blur-md shadow-sm
+          ">
+            <span className="text-sm">💙</span>
+            <span className="text-xs font-semibold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
+              You deserve support
+            </span>
           </div>
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
-            SafeSpace AI
+        </motion.div>
+
+        {/* Hero Title */}
+        <motion.div variants={ITEM} className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight max-w-3xl mx-auto">
+            You're not alone. <br />
+            <span className="text-gradient">Let's figure this out together.</span>
           </h1>
-          <p className="text-xl text-primary-600 dark:text-primary-400 font-semibold mb-2">
-            You are not alone.
-          </p>
-          <p className="text-gray-500 dark:text-gray-400 text-base max-w-md mx-auto">
-            Anonymous AI-powered support for women experiencing online harassment, threats, or abuse.
+          <p className="text-gray-500 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
+            SafeSpace AI helps you understand the severity of online harassment, identify warning signs, and take calm, informed next steps — privately and without judgment.
           </p>
         </motion.div>
 
-        {/* Steps card */}
+        {/* Steps section */}
         <motion.div
           variants={ITEM}
-          className="card p-8 mb-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10"
         >
-          <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-6 text-center">
-            How it works
-          </h2>
-          <div className="space-y-5">
-            {STEPS.map((step, i) => (
-              <motion.div
-                key={i}
-                className="flex items-start gap-4"
-                variants={ITEM}
-              >
-                {/* Step number */}
-                <div className="shrink-0 w-8 h-8 rounded-full bg-primary-500 text-white text-sm font-bold flex items-center justify-center shadow-sm">
-                  {i + 1}
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800 dark:text-white text-sm">
-                    {step.icon} {step.title}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">
-                    {step.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {STEPS.map((step, i) => (
+            <motion.div
+              key={i}
+              className="glass-card p-6 flex gap-4 items-start relative overflow-hidden"
+              variants={ITEM}
+              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.2)' }}
+            >
+              <div className="shrink-0 w-10 h-10 rounded-xl bg-primary-500/10 text-primary-500 text-lg flex items-center justify-center font-bold">
+                {step.icon}
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-900 dark:text-slate-100 text-base mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
-        {/* CTA */}
-        <motion.div variants={ITEM} className="space-y-3">
-          <motion.button
-            onClick={onStart}
-            className="
-              w-full py-4 px-8
-              bg-primary-500 hover:bg-primary-600 active:bg-primary-700
-              text-white text-lg font-bold
-              rounded-xl shadow-lg hover:shadow-xl
-              transition-all duration-150
-              focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
-            "
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            aria-label="Start the SafeSpace AI analysis"
-          >
-            Get Started — It's Free
-          </motion.button>
+        {/* CTA & Trust Badges */}
+        <motion.div variants={ITEM} className="space-y-12 text-center">
+          <div className="max-w-md mx-auto relative group">
+            {/* Glow backing */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-300" />
+            <motion.button
+              onClick={onStart}
+              className="
+                relative w-full py-4 px-10
+                bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500
+                text-white text-lg font-bold rounded-full
+                shadow-xl transition-all duration-200
+                focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+              "
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              aria-label="Start Safely"
+            >
+              Start Safely 🛡️ →
+            </motion.button>
+          </div>
 
-          {/* Trust badges */}
-          <div className="flex items-center justify-center gap-6 text-xs text-gray-400 dark:text-gray-500">
-            <span>🔒 Fully anonymous</span>
-            <span>🚫 No data stored</span>
-            <span>⚡ Instant results</span>
+          {/* Trust cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto pt-6 border-t border-gray-100 dark:border-slate-900">
+            {TRUST_PILLS.map((pill, i) => (
+              <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-gray-50/50 dark:bg-slate-900/30 border border-gray-100/50 dark:border-slate-800/20">
+                <span className="text-lg mb-2">{pill.icon}</span>
+                <span className="text-xs font-bold text-gray-800 dark:text-slate-200 mb-0.5">{pill.title}</span>
+                <span className="text-[10px] text-gray-400 dark:text-slate-500">{pill.desc}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
       </motion.div>

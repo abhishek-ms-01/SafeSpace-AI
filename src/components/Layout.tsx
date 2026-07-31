@@ -10,18 +10,36 @@ interface LayoutProps {
 export function Layout({ children, showDarkModeToggle = true }: LayoutProps) {
   const { isDarkMode, toggle } = useDarkMode()
 
+  const handlePanicExit = () => {
+    try {
+      sessionStorage.clear()
+      localStorage.clear()
+    } catch (e) {}
+    window.location.replace('https://www.google.com')
+  }
+
   return (
     <div
-      className="min-h-screen transition-colors duration-300"
-      style={{
-        background: isDarkMode
-          ? 'linear-gradient(135deg, #0f172a 0%, #111827 60%, #0d1117 100%)'
-          : 'linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #ede9fe 100%)',
-      }}
+      className="min-h-screen transition-colors duration-300 bg-gradient-canvas"
     >
-      {/* Dark mode toggle — fixed top-right */}
-      {showDarkModeToggle && (
-        <div className="fixed top-4 right-4 z-50">
+      {/* Top Header Actions (Exit Quickly + Dark Mode Toggle) */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <motion.button
+          onClick={handlePanicExit}
+          className="
+            px-4 h-10 rounded-full
+            bg-red-600 hover:bg-red-700
+            text-white text-sm font-semibold shadow-lg
+            flex items-center gap-1.5 transition-all
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500
+          "
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span>✕</span> Exit Quickly
+        </motion.button>
+
+        {showDarkModeToggle && (
           <motion.button
             onClick={toggle}
             aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -47,8 +65,8 @@ export function Layout({ children, showDarkModeToggle = true }: LayoutProps) {
               {isDarkMode ? '☀️' : '🌙'}
             </motion.span>
           </motion.button>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Page content */}
       <motion.main

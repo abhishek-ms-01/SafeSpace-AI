@@ -46,7 +46,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
         >
           <motion.button
             onClick={onBack}
-            className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-colors"
+            className="flex items-center gap-1.5 px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-slate-200 bg-gray-200 dark:bg-slate-800 hover:bg-gray-300 dark:hover:bg-slate-700 rounded-full transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             aria-label="Go back to home"
@@ -67,7 +67,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
         {/* Loading state */}
         {loading && (
           <motion.div
-            className="card p-12 text-center"
+            className="glass-card p-12 text-center border-primary-200/25 dark:border-slate-800/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -81,7 +81,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
         {/* Error state */}
         {error && !loading && (
           <motion.div
-            className="card p-8 text-center max-w-lg mx-auto"
+            className="glass-card p-8 text-center max-w-lg mx-auto border-primary-200/25 dark:border-slate-800/30"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -92,7 +92,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-5">{error}</p>
             <motion.button
               onClick={() => generateIncidentReport(threatType, severity, [`Incident: ${threatType}`])}
-              className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl text-sm transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-full text-sm transition-all"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
             >

@@ -53,9 +53,9 @@ export function MessageInput({
           className="
             w-full min-h-[120px] max-h-[300px]
             px-4 py-3
-            bg-white dark:bg-gray-900
-            border-2 border-gray-200 dark:border-gray-700
-            rounded-xl
+            bg-white dark:bg-slate-900/40
+            border-2 border-gray-200 dark:border-slate-850/60
+            rounded-2xl
             text-gray-800 dark:text-gray-100
             placeholder-gray-400 dark:placeholder-gray-500
             text-base leading-relaxed
@@ -84,11 +84,11 @@ export function MessageInput({
           aria-label="Analyze message for threats"
           className="
             flex items-center gap-2
-            px-6 py-2.5
-            bg-primary-500 hover:bg-primary-600 active:bg-primary-700
-            text-white font-semibold text-sm
-            rounded-xl
-            transition-colors duration-150
+            px-6 py-3
+            bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500
+            text-white font-bold text-sm
+            rounded-full
+            transition-all duration-150
             disabled:opacity-40 disabled:cursor-not-allowed
             focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
             shadow-md hover:shadow-lg

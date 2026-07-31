@@ -134,9 +134,9 @@ export function ThreatDetectionPanel({ result, loading = false }: ThreatDetectio
                 {result.severity_score}/10 — {theme.label}
               </p>
             </div>
-            <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div className="w-full h-3.5 bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-gray-350/20 dark:border-slate-750/30">
               <motion.div
-                className={`h-full rounded-full ${theme.bar}`}
+                className={`h-full rounded-full ${theme.bar} shadow-inner`}
                 initial={{ width: 0 }}
                 animate={{ width: `${barPercent}%` }}
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}

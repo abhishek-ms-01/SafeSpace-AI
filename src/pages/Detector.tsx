@@ -67,7 +67,7 @@ export function Detector({ onCompleteAnalysis }: DetectorProps) {
         {/* Input phase — shown before analysis */}
         {!showResults && (
           <motion.div
-            className="card p-8 max-w-2xl mx-auto"
+            className="glass-card p-8 max-w-2xl mx-auto border-primary-200/25 dark:border-slate-800/30"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.1 }}
@@ -112,14 +112,14 @@ export function Detector({ onCompleteAnalysis }: DetectorProps) {
               {/* RIGHT — Chat companion (only if threat detected) */}
               {threatDetected && (
                 <motion.div
-                  className="card overflow-hidden flex flex-col"
+                  className="glass-card overflow-hidden flex flex-col border-primary-200/25 dark:border-slate-800/30"
                   style={{ minHeight: '500px' }}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.15 }}
                 >
-                  <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
-                    <h2 className="font-semibold text-gray-800 dark:text-white text-sm">
+                  <div className="px-5 py-4 border-b border-gray-200/50 dark:border-slate-800/50 shrink-0">
+                    <h2 className="font-bold text-gray-800 dark:text-white text-sm">
                       💬 Support Companion
                     </h2>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
@@ -139,16 +139,16 @@ export function Detector({ onCompleteAnalysis }: DetectorProps) {
 
             {/* Action buttons */}
             <motion.div
-              className="flex flex-wrap gap-3 mt-8"
+              className="flex flex-wrap gap-4 mt-8 justify-between items-center"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
               <motion.button
                 onClick={reset}
-                className="px-5 py-2.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm"
+                className="px-6 py-3 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 font-bold rounded-full hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors text-sm"
                 whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
+                whileTap={{ scale: 0.98 }}
               >
                 ← Analyze Another
               </motion.button>
@@ -156,9 +156,9 @@ export function Detector({ onCompleteAnalysis }: DetectorProps) {
               {threatDetected && severityAssessment && (
                 <motion.button
                   onClick={handleContinue}
-                  className="px-5 py-2.5 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-colors text-sm shadow-md hover:shadow-lg"
+                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-full transition-all text-sm shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Generate Safety Report →
                 </motion.button>

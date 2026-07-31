@@ -1,4 +1,4 @@
-﻿/* =============================================================
+/* =============================================================
    SafeSpace AI — Master Global Stylesheet
    Import order: variables -> animations -> Tailwind -> custom
    ============================================================= */
@@ -72,44 +72,56 @@
   border-radius: 4px;
 }
 
-/* ── Card utility (no @apply to avoid dark: restriction) ── */
+/* ── Heading Fonts ── */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display, 'Outfit', 'Playfair Display', serif);
+}
+
+/* ── Card utility ── */
 .card {
   background-color: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 0.75rem;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
   box-shadow: var(--shadow-md);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 .dark .card {
-  background-color: #1F2937;
-  border-color: #374151;
-  box-shadow: var(--shadow-md);
+  background-color: #0b1120;
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ── Glass card — frosted glass effect ── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1rem;
   box-shadow: var(--shadow-lg);
+  transition: border-color var(--duration-normal) var(--ease-out);
 }
 .dark .glass-card {
-  background: rgba(31, 41, 55, 0.75);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(11, 17, 32, 0.7);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+.dark .glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ── Gradient backgrounds ── */
 .bg-gradient-canvas {
-  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #ede9fe 100%);
+  background: linear-gradient(135deg, #f5f8ff 0%, #eef3ff 50%, #f3efff 100%);
 }
 .dark .bg-gradient-canvas {
-  background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #0d1117 100%);
+  background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
+              radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 45%),
+              #050811;
 }
 
 /* ── Gradient text ── */
 .text-gradient {
-  background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+  background: linear-gradient(135deg, #3B82F6 0%, #a855f7 50%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -117,29 +129,35 @@
 
 /* ── Severity bar track ── */
 .severity-track {
-  background-color: #E5E7EB;
+  background-color: #E2E8F0;
   border-radius: 9999px;
-  height: 0.625rem;
+  height: 0.75rem;
   overflow: hidden;
 }
 .dark .severity-track {
-  background-color: #374151;
+  background-color: #1e293b;
 }
 
 /* ── Message bubble base ── */
 .bubble-user {
-  background-color: #2563EB;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
   color: #FFFFFF;
-  border-radius: 1rem 1rem 0.25rem 1rem;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 .bubble-ai {
-  background-color: #F3F4F6;
-  color: #111827;
-  border-radius: 1rem 1rem 1rem 0.25rem;
+  background-color: #F1F5F9;
+  color: #0F172A;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  border: 1px solid #E2E8F0;
 }
 .dark .bubble-ai {
-  background-color: #374151;
-  color: #F3F4F6;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #F8FAFC;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* ── Shimmer skeleton ── */
