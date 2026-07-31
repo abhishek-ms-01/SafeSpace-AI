@@ -5,16 +5,16 @@ interface HomeProps {
 }
 
 const STEPS = [
-  { icon: '📋', title: 'Describe the incident', desc: 'Paste a message or describe what happened in your own words.' },
-  { icon: '🔍', title: 'Get instant analysis', desc: 'Our AI identifies threat patterns and severity in seconds.' },
-  { icon: '💬', title: 'Talk to a companion', desc: 'A compassionate AI companion listens and helps you process.' },
-  { icon: '📄', title: 'Generate your report', desc: 'Download a structured report and access safety resources.' },
+  { icon: '🛡️', title: 'Document & Safe Paste', desc: 'Securely enter harassment transcripts, messages, or descriptions of what occurred.' },
+  { icon: '⚖️', title: 'Objective Analysis', desc: 'Our privacy-focused AI instantly evaluates threat levels, severity, and potential risks.' },
+  { icon: '🤝', title: 'Trauma-Informed Support', desc: 'Process the situation safely and privately with a companion designed for high-stress incidents.' },
+  { icon: '📋', title: 'Standardized Incident Records', desc: 'Download a structured PDF or text report and instantly connect with vetted support resources.' },
 ]
 
 const TRUST_PILLS = [
-  { icon: '🔒', title: '100% Anonymous', desc: 'No account needed' },
-  { icon: '🚫', title: 'No Login Required', desc: 'Access immediately' },
-  { icon: '🛡️', title: 'Data Stays On Your Device', desc: 'Nothing is uploaded' },
+  { icon: '🔒', title: 'Zero Data Retention', desc: 'All texts are processed in-memory and never saved to a database' },
+  { icon: '💾', title: 'Local Storage Only', desc: 'Incident reports and chat histories remain strictly on your local device' },
+  { icon: '⚡', title: 'Immediate Purge Option', desc: 'Wipe all session data instantly at any moment with the panic exit' },
 ]
 
 const CONTAINER = {
@@ -43,9 +43,9 @@ export function Home({ onStart }: HomeProps) {
             border border-primary-200/50 dark:border-primary-800/30
             backdrop-blur-md shadow-sm
           ">
-            <span className="text-sm">💙</span>
+            <span className="text-sm">🛡️</span>
             <span className="text-xs font-semibold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
-              You deserve support
+              SECURE & ANONYMOUS INCIDENT RESPONSE
             </span>
           </div>
         </motion.div>
@@ -53,11 +53,11 @@ export function Home({ onStart }: HomeProps) {
         {/* Hero Title */}
         <motion.div variants={ITEM} className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight max-w-3xl mx-auto">
-            You're not alone. <br />
-            <span className="text-gradient">Let's figure this out together.</span>
+            Regain control of your <br />
+            <span className="text-gradient">digital security and peace of mind.</span>
           </h1>
-          <p className="text-gray-500 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-            SafeSpace AI helps you understand the severity of online harassment, identify warning signs, and take calm, informed next steps — privately and without judgment.
+          <p className="text-gray-500 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            SafeSpace AI helps women understand the impact of online abuse, structure secure evidence records, and access trauma-informed resources—privately, immediately, and completely anonymous.
           </p>
         </motion.div>
 
@@ -71,7 +71,7 @@ export function Home({ onStart }: HomeProps) {
               key={i}
               className="glass-card p-6 flex gap-4 items-start relative overflow-hidden"
               variants={ITEM}
-              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.2)' }}
+              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.15)' }}
             >
               <div className="shrink-0 w-10 h-10 rounded-xl bg-primary-500/10 text-primary-500 text-lg flex items-center justify-center font-bold">
                 {step.icon}
@@ -104,19 +104,19 @@ export function Home({ onStart }: HomeProps) {
               "
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              aria-label="Start Safely"
+              aria-label="Begin Incident Analysis"
             >
-              Start Safely 🛡️ →
+              Begin Secure Analysis 🛡️ →
             </motion.button>
           </div>
 
           {/* Trust cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto pt-6 border-t border-gray-100 dark:border-slate-900">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto pt-6 border-t border-gray-100/50 dark:border-slate-900/30">
             {TRUST_PILLS.map((pill, i) => (
-              <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-gray-50/50 dark:bg-slate-900/30 border border-gray-100/50 dark:border-slate-800/20">
+              <div key={i} className="flex flex-col items-center p-4 rounded-xl bg-gray-50/50 dark:bg-slate-900/10 border border-gray-100/50 dark:border-slate-800/10">
                 <span className="text-lg mb-2">{pill.icon}</span>
                 <span className="text-xs font-bold text-gray-800 dark:text-slate-200 mb-0.5">{pill.title}</span>
-                <span className="text-[10px] text-gray-400 dark:text-slate-500">{pill.desc}</span>
+                <span className="text-[10px] text-gray-400 dark:text-slate-500 text-center">{pill.desc}</span>
               </div>
             ))}
           </div>
