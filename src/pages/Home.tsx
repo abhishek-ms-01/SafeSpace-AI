@@ -22,13 +22,53 @@ const CONTAINER = {
   show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 }
 const ITEM = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const } },
+  hidden: { opacity: 0, y: 35, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: 'spring' as const,
+      stiffness: 90,
+      damping: 15,
+      mass: 0.8,
+    },
+  },
 }
 
 export function Home({ onStart }: HomeProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden bg-gradient-canvas">
+      {/* Interactive ambient floating background glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-[100px]"
+          animate={{
+            x: [0, 80, -40, 0],
+            y: [0, -60, 40, 0],
+            scale: [1, 1.15, 0.9, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-purple-500/5 dark:bg-indigo-500/10 blur-[120px]"
+          animate={{
+            x: [0, -80, 40, 0],
+            y: [0, 60, -40, 0],
+            scale: [1, 0.9, 1.15, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </div>
+
       <motion.div
         className="w-full max-w-4xl z-10"
         variants={CONTAINER}
@@ -45,7 +85,7 @@ export function Home({ onStart }: HomeProps) {
           ">
             <span className="text-sm">🛡️</span>
             <span className="text-xs font-semibold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
-              SECURE & ANONYMOUS INCIDENT RESPONSE
+              SafeSpace AI — You are safe here
             </span>
           </div>
         </motion.div>
@@ -53,11 +93,11 @@ export function Home({ onStart }: HomeProps) {
         {/* Hero Title */}
         <motion.div variants={ITEM} className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight tracking-tight max-w-3xl mx-auto">
-            Regain control of your <br />
-            <span className="text-gradient">digital security and peace of mind.</span>
+            Don't face the digital shadows alone. <br />
+            <span className="text-gradient">We are here to help. Just tell us.</span>
           </h1>
           <p className="text-gray-500 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            SafeSpace AI helps women understand the impact of online abuse, structure secure evidence records, and access trauma-informed resources—privately, immediately, and completely anonymous.
+            SafeSpace AI provides an entirely anonymous, private sanctuary to evaluate online abuse, receive trauma-informed support, and generate secure incident logs. No tracking, no judgment. Just help.
           </p>
         </motion.div>
 
@@ -71,7 +111,7 @@ export function Home({ onStart }: HomeProps) {
               key={i}
               className="glass-card p-6 flex gap-4 items-start relative overflow-hidden"
               variants={ITEM}
-              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.15)' }}
+              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.25)', scale: 1.01 }}
             >
               <div className="shrink-0 w-10 h-10 rounded-xl bg-primary-500/10 text-primary-500 text-lg flex items-center justify-center font-bold">
                 {step.icon}
@@ -102,8 +142,8 @@ export function Home({ onStart }: HomeProps) {
                 shadow-xl transition-all duration-200
                 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
               "
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.04, boxShadow: '0 0 25px rgba(59, 130, 246, 0.4)' }}
+              whileTap={{ scale: 0.96 }}
               aria-label="Begin Incident Analysis"
             >
               Begin Secure Analysis 🛡️ →
