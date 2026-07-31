@@ -7,34 +7,26 @@ interface SeverityIndicatorProps {
 
 const LEVEL_CONFIG = {
   low: {
-    bg: 'bg-success-100 dark:bg-green-900/20',
-    border: 'border-success-500',
-    text: 'text-success-700 dark:text-green-300',
-    badge: 'bg-success-500',
+    accent: 'bg-green-500',
+    text: 'text-green-400',
     icon: '✅',
     label: 'Low Severity',
   },
   medium: {
-    bg: 'bg-warning-100 dark:bg-yellow-900/20',
-    border: 'border-warning-500',
-    text: 'text-warning-700 dark:text-yellow-300',
-    badge: 'bg-warning-500',
+    accent: 'bg-yellow-500',
+    text: 'text-yellow-400',
     icon: '⚠️',
     label: 'Medium Severity',
   },
   high: {
-    bg: 'bg-orange-100 dark:bg-orange-900/20',
-    border: 'border-orange-500',
-    text: 'text-orange-700 dark:text-orange-300',
-    badge: 'bg-orange-500',
+    accent: 'bg-orange-500',
+    text: 'text-orange-400',
     icon: '🔴',
     label: 'High Severity',
   },
   critical: {
-    bg: 'bg-danger-100 dark:bg-red-900/20',
-    border: 'border-danger-600',
-    text: 'text-danger-700 dark:text-red-300',
-    badge: 'bg-danger-600',
+    accent: 'bg-red-500',
+    text: 'text-red-400',
     icon: '🚨',
     label: 'Critical Severity',
   },
@@ -67,17 +59,20 @@ export function SeverityIndicator({ assessment }: SeverityIndicatorProps) {
 
   return (
     <motion.div
-      className={`rounded-xl border-2 p-5 ${cfg.bg} ${cfg.border} shadow-md`}
+      className="glass-card p-6 border border-white/5 dark:border-slate-800/50 backdrop-blur-md relative overflow-hidden bg-slate-950/20 shadow-xl rounded-2xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
     >
+      {/* Top Accent Color Bar */}
+      <div className={`absolute top-0 left-0 right-0 h-1.5 ${cfg.accent}`} />
+
       {/* Header — icon + level + score */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="text-3xl" role="img" aria-label={cfg.label}>{cfg.icon}</span>
+      <div className="flex items-center gap-3 mb-5 mt-1">
+        <span className="text-2xl" role="img" aria-label={cfg.label}>{cfg.icon}</span>
         <div>
-          <p className={`text-lg font-bold ${cfg.text}`}>{cfg.label}</p>
-          <p className={`text-sm ${cfg.text} opacity-70`}>
+          <p className="text-lg font-bold text-gray-900 dark:text-white font-display">{cfg.label}</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
             Score: {assessment.severity_score}/10 · Safety index: {assessment.safety_score}/100
           </p>
         </div>
@@ -85,46 +80,46 @@ export function SeverityIndicator({ assessment }: SeverityIndicatorProps) {
 
       {/* Risk factors */}
       {activeRisks.length > 0 && (
-        <div className="mb-4">
-          <p className={`text-xs uppercase tracking-wider mb-2 ${cfg.text} opacity-70`}>
+        <div className="mb-5">
+          <p className="text-[10px] tracking-widest font-extrabold uppercase text-slate-400 dark:text-slate-500 mb-2">
             Risk Factors Detected
           </p>
-          <ul className="space-y-1.5">
+          <div className="flex flex-wrap gap-1.5">
             {activeRisks.map((key, i) => (
-              <motion.li
+              <motion.span
                 key={key}
-                className={`flex items-center gap-2 text-sm font-medium ${cfg.text}`}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.06 }}
+                className="text-[11px] font-bold px-2.5 py-1 rounded bg-red-500/5 border border-red-500/10 text-red-500 dark:text-red-400 flex items-center gap-1.5"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
               >
-                <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-current" />
+                <span className="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
                 {RISK_LABELS[key] ?? key}
-              </motion.li>
+              </motion.span>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
       {/* Reasoning */}
-      <div className="mb-4">
-        <p className={`text-xs uppercase tracking-wider mb-1 ${cfg.text} opacity-70`}>Assessment</p>
-        <p className={`text-sm leading-relaxed ${cfg.text}`}>{assessment.reasoning}</p>
+      <div className="mb-5">
+        <p className="text-[10px] tracking-widest font-extrabold uppercase text-slate-400 dark:text-slate-500 mb-1.5">Assessment</p>
+        <p className="text-sm leading-relaxed text-gray-600 dark:text-slate-350">{assessment.reasoning}</p>
       </div>
 
       {/* Recommended action */}
       <motion.div
-        className="pt-3 border-t border-current/20"
+        className="pt-4 border-t border-white/5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
       >
-        <p className={`text-xs uppercase tracking-wider mb-1 ${cfg.text} opacity-70`}>
+        <p className="text-[10px] tracking-widest font-extrabold uppercase text-slate-400 dark:text-slate-500 mb-2">
           Recommended Action
         </p>
-        <p className={`text-sm font-semibold ${cfg.text}`}>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-bold text-gray-900 dark:text-slate-200">
           {ACTION_LABELS[assessment.recommended_action] ?? assessment.recommended_action}
-        </p>
+        </div>
       </motion.div>
     </motion.div>
   )

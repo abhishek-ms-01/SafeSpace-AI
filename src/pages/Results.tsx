@@ -21,6 +21,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
     generateIncidentReport,
     downloadReportAsJSON,
     downloadReportAsText,
+    downloadReportAsPDF,
   } = useReportGeneration()
 
   // Auto-generate report on mount using the passed analysis data
@@ -112,6 +113,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
             {/* LEFT — Incident report */}
             <IncidentReport
               report={report}
+              onDownloadPDF={downloadReportAsPDF}
               onDownloadJSON={downloadReportAsJSON}
               onDownloadText={downloadReportAsText}
             />

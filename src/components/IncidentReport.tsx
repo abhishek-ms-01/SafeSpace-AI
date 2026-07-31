@@ -5,6 +5,7 @@ interface IncidentReportProps {
   report: IncidentReportType | null
   onDownloadJSON?: () => void
   onDownloadText?: () => void
+  onDownloadPDF?: () => void
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -18,7 +19,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
-export function IncidentReport({ report, onDownloadJSON, onDownloadText }: IncidentReportProps) {
+export function IncidentReport({ report, onDownloadJSON, onDownloadText, onDownloadPDF }: IncidentReportProps) {
   if (!report) return null
 
   // Safe fallbacks to prevent crashes
@@ -140,14 +141,14 @@ export function IncidentReport({ report, onDownloadJSON, onDownloadText }: Incid
       </div>
 
       {/* Download buttons */}
-      <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex gap-3">
-        {onDownloadJSON && (
+      <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex flex-wrap gap-3">
+        {onDownloadPDF && (
           <motion.button
-            onClick={onDownloadJSON}
-            className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold rounded-lg transition-colors"
+            onClick={onDownloadPDF}
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
           >
-            📥 Download JSON
+            📑 Download PDF
           </motion.button>
         )}
         {onDownloadText && (
@@ -157,6 +158,15 @@ export function IncidentReport({ report, onDownloadJSON, onDownloadText }: Incid
             whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
           >
             📄 Download Text
+          </motion.button>
+        )}
+        {onDownloadJSON && (
+          <motion.button
+            onClick={onDownloadJSON}
+            className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold rounded-lg transition-colors"
+            whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+          >
+            📥 Download JSON
           </motion.button>
         )}
       </div>
