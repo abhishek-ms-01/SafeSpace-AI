@@ -1,0 +1,164 @@
+﻿/* =============================================================
+   SafeSpace AI — Master Global Stylesheet
+   Import order: variables -> animations -> Tailwind -> custom
+   ============================================================= */
+
+@import './variables.css';
+@import './animations.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base layer ── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+  }
+
+  body {
+    font-family: var(--font-sans, 'Inter', system-ui, sans-serif);
+    font-size: var(--text-base, 1rem);
+    line-height: 1.6;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Remove default button cursor */
+  button { cursor: pointer; }
+
+  /* Better default anchor */
+  a { color: inherit; }
+
+  /* Better image defaults */
+  img, video { max-width: 100%; display: block; }
+
+  /* Selection color */
+  ::selection {
+    background-color: #BFDBFE;
+    color: #1D4ED8;
+  }
+  .dark ::selection {
+    background-color: #1D4ED8;
+    color: #EFF6FF;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #3B82F6; }
+.dark ::-webkit-scrollbar-thumb { background: #4B5563; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #60A5FA; }
+
+/* ── Focus ring — global accessible default ── */
+:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Card utility (no @apply to avoid dark: restriction) ── */
+.card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-md);
+}
+.dark .card {
+  background-color: #1F2937;
+  border-color: #374151;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Glass card — frosted glass effect ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+}
+.dark .glass-card {
+  background: rgba(31, 41, 55, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Gradient backgrounds ── */
+.bg-gradient-canvas {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #ede9fe 100%);
+}
+.dark .bg-gradient-canvas {
+  background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #0d1117 100%);
+}
+
+/* ── Gradient text ── */
+.text-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Severity bar track ── */
+.severity-track {
+  background-color: #E5E7EB;
+  border-radius: 9999px;
+  height: 0.625rem;
+  overflow: hidden;
+}
+.dark .severity-track {
+  background-color: #374151;
+}
+
+/* ── Message bubble base ── */
+.bubble-user {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  border-radius: 1rem 1rem 0.25rem 1rem;
+}
+.bubble-ai {
+  background-color: #F3F4F6;
+  color: #111827;
+  border-radius: 1rem 1rem 1rem 0.25rem;
+}
+.dark .bubble-ai {
+  background-color: #374151;
+  color: #F3F4F6;
+}
+
+/* ── Shimmer skeleton ── */
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+.dark .shimmer {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+  background-size: 800px 100%;
+}
+
+/* ── Reduced motion — override ALL animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:          auto   !important;
+  }
+}
