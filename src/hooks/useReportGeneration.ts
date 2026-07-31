@@ -73,14 +73,18 @@ export function useReportGeneration(): UseReportGenerationReturn {
     const country = localStorage.getItem('userCountry') ?? 'US'
 
     try {
-      // Run both calls in parallel for speed
-      const [generatedReport, safetyResources] = await Promise.all([
-        generateReport(incidentType, severity, messages, context),
-        routeToResources(incidentType, severity, country),
-      ])
-
+      // Generate report first (critical) — resources are secondary
+      const generatedReport = await generateReport(incidentType, severity, messages, context)
       setReport(generatedReport)
-      setResources(safetyResources)
+
+      // Fetch resources independently — failure here won't block the report
+      try {
+        const safetyResources = await routeToResources(incidentType, severity, country)
+        setResources(safetyResources)
+      } catch (resourceErr) {
+        console.warn('[useReportGeneration] Resources failed (non-fatal):', resourceErr)
+        // Resources panel will just show empty/fallback state — report still shows
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Failed to generate report.'
       setError(msg)

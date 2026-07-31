@@ -6,7 +6,7 @@
 // Fast model: detection, severity, chat (low latency)
 export const GROQ_MODEL_FAST  = 'llama-3.1-8b-instant'
 // Smart model: report generation, resource routing (higher quality)
-export const GROQ_MODEL_SMART = 'llama-3.3-70b-versatile'
+export const GROQ_MODEL_SMART = 'llama-3.1-70b-versatile'
 
 // ── Token Limits ─────────────────────────────────────────────
 export const MAX_TOKENS_DETECTION  = 512

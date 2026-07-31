@@ -171,15 +171,17 @@ export async function generateReport(
     .replace('{messages}', messages.join('\n---\n'))
     .replace('{context}', context || 'No additional context provided.')
 
+  // Try smart model first, fall back to fast model on rate-limit/error
   try {
-    return await callGroq<IncidentReport>(
-      prompt,
-      GROQ_MODEL_SMART,
-      MAX_TOKENS_REPORT
-    )
-  } catch (error) {
-    console.error('[SafeSpace] generateReport error:', error)
-    throw new Error('Failed to generate incident report. Please try again.')
+    return await callGroq<IncidentReport>(prompt, GROQ_MODEL_SMART, MAX_TOKENS_REPORT)
+  } catch (smartErr) {
+    console.warn('[SafeSpace] Smart model failed, retrying with fast model:', smartErr)
+    try {
+      return await callGroq<IncidentReport>(prompt, GROQ_MODEL_FAST, MAX_TOKENS_REPORT)
+    } catch (fastErr) {
+      console.error('[SafeSpace] generateReport error (both models):', fastErr)
+      throw new Error('Failed to generate incident report. Please try again.')
+    }
   }
 }
 
@@ -197,14 +199,16 @@ export async function routeToResources(
     .replace('{severity}', severity)
     .replace('{country}', country)
 
+  // Try smart model first, fall back to fast model on rate-limit/error
   try {
-    return await callGroq<SafetyResources>(
-      prompt,
-      GROQ_MODEL_SMART,
-      MAX_TOKENS_RESOURCES
-    )
-  } catch (error) {
-    console.error('[SafeSpace] routeToResources error:', error)
-    throw new Error('Failed to fetch safety resources. Please try again.')
+    return await callGroq<SafetyResources>(prompt, GROQ_MODEL_SMART, MAX_TOKENS_RESOURCES)
+  } catch (smartErr) {
+    console.warn('[SafeSpace] Smart model failed for resources, retrying:', smartErr)
+    try {
+      return await callGroq<SafetyResources>(prompt, GROQ_MODEL_FAST, MAX_TOKENS_RESOURCES)
+    } catch (fastErr) {
+      console.error('[SafeSpace] routeToResources error (both models):', fastErr)
+      throw new Error('Failed to fetch safety resources. Please try again.')
+    }
   }
 }
