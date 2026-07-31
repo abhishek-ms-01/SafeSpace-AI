@@ -126,14 +126,22 @@ export function Home({ onStart }: HomeProps) {
             </motion.button>
           </motion.div>
 
-          {/* Trust Badges — Flat Row */}
+          {/* Trust Badges — Stacked List */}
           <motion.div variants={ITEM} className="w-full pt-6 border-t border-gray-100/50 dark:border-slate-900/30">
-            <div className="flex flex-col gap-2.5">
+            <div className="space-y-3.5">
               {TRUST_PILLS.map((pill, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="text-sm shrink-0">{pill.icon}</span>
-                  <span className="text-xs font-bold text-gray-800 dark:text-slate-200 shrink-0">{pill.title}</span>
-                  <span className="text-[10px] md:text-xs text-gray-400 dark:text-slate-400">— {pill.desc}</span>
+                <div key={i} className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded bg-primary-500/10 dark:bg-primary-500/10 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                    {pill.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-slate-200">
+                      {pill.title}
+                    </h4>
+                    <p className="text-[11px] text-gray-500 dark:text-slate-400 leading-normal mt-0.5">
+                      {pill.desc}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
