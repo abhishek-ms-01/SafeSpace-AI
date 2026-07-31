@@ -27,16 +27,18 @@ export function Layout({ children, showDarkModeToggle = true }: LayoutProps) {
         <motion.button
           onClick={handlePanicExit}
           className="
-            px-4 h-10 rounded-full
+            h-9 rounded-full
             bg-red-600 hover:bg-red-700
-            text-white text-sm font-semibold shadow-lg
+            text-white text-xs font-semibold shadow-lg
             flex items-center gap-1.5 transition-all
+            px-3 md:px-4 md:text-sm
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500
           "
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span>✕</span> Exit Quickly
+          <span>✕</span>
+          <span className="hidden sm:inline">Exit Quickly</span>
         </motion.button>
 
         {showDarkModeToggle && (
