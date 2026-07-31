@@ -79,12 +79,12 @@ export function Home({ onStart }: HomeProps) {
         <motion.div variants={ITEM} className="flex justify-center mb-6">
           <div className="
             inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-            bg-primary-50/80 dark:bg-primary-950/20
-            border border-primary-200/50 dark:border-primary-800/30
+            bg-primary-500/10 dark:bg-primary-500/10
+            border border-primary-500/20 dark:border-primary-500/20
             backdrop-blur-md shadow-sm
           ">
             <span className="text-sm">🛡️</span>
-            <span className="text-xs font-semibold text-primary-700 dark:text-primary-300 uppercase tracking-wider">
+            <span className="text-xs font-bold text-primary-600 dark:text-primary-300 uppercase tracking-wider">
               SafeSpace AI — You are safe here
             </span>
           </div>
