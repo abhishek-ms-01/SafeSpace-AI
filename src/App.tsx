@@ -55,7 +55,10 @@ function App() {
 
           {currentPage === 'detector' && (
             <motion.div key="detector" {...PAGE_TRANSITION}>
-              <Detector onCompleteAnalysis={handleCompleteAnalysis} />
+              <Detector
+                onCompleteAnalysis={handleCompleteAnalysis}
+                onBack={handleBackToHome}
+              />
             </motion.div>
           )}
 

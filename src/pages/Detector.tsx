@@ -10,9 +10,10 @@ import type { ThreatType, SeverityLevel } from '../types'
 
 interface DetectorProps {
   onCompleteAnalysis: (threatType: ThreatType, severity: SeverityLevel) => void
+  onBack: () => void
 }
 
-export function Detector({ onCompleteAnalysis }: DetectorProps) {
+export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
   const {
     loading: detectLoading,
     error: detectError,
@@ -51,17 +52,28 @@ export function Detector({ onCompleteAnalysis }: DetectorProps) {
 
         {/* Page header */}
         <motion.div
-          className="mb-8"
+          className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            🛡 SafeSpace AI — Incident Analysis
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
-            Share what happened and we'll help you understand and document it.
-          </p>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              🛡 SafeSpace AI — Incident Analysis
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+              Share what happened and we'll help you understand and document it.
+            </p>
+          </div>
+
+          <motion.button
+            onClick={onBack}
+            className="self-start sm:self-center px-4 py-2 rounded-full border border-gray-200 dark:border-slate-800 text-gray-600 dark:text-slate-300 bg-white/5 backdrop-blur hover:bg-white/10 text-sm font-semibold transition-all duration-200 shadow-sm"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            ← Back to Home
+          </motion.button>
         </motion.div>
 
         {/* Input phase — shown before analysis */}
