@@ -94,7 +94,7 @@ export function Home({ onStart }: HomeProps) {
 
           {/* Hero Title */}
           <motion.div variants={ITEM}>
-            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-tight font-display">
+            <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-[1.1] tracking-tight font-display">
               Don't face the <br />
               digital shadows alone. <br />
               <span className="text-gradient">We are here to help. <br />Just tell us.</span>
@@ -126,22 +126,22 @@ export function Home({ onStart }: HomeProps) {
             </motion.button>
           </motion.div>
 
-          {/* Trust Badges — Stacked List */}
+          {/* Trust Badges — Simple Side-by-Side Horizontal Row */}
           <motion.div variants={ITEM} className="w-full pt-6 border-t border-gray-100/50 dark:border-slate-900/30">
-            <div className="space-y-3.5">
+            <div className="flex flex-wrap gap-2">
               {TRUST_PILLS.map((pill, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded bg-primary-500/10 dark:bg-primary-500/10 flex items-center justify-center text-xs shrink-0 mt-0.5">
-                    {pill.icon}
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold text-gray-900 dark:text-slate-200">
-                      {pill.title}
-                    </h4>
-                    <p className="text-[11px] text-gray-500 dark:text-slate-400 leading-normal mt-0.5">
-                      {pill.desc}
-                    </p>
-                  </div>
+                <div
+                  key={i}
+                  className="
+                    flex items-center gap-1.5 px-3 py-1 rounded-full
+                    bg-primary-500/5 dark:bg-primary-500/10
+                    border border-primary-500/10 dark:border-primary-500/20
+                  "
+                >
+                  <span className="text-xs shrink-0">{pill.icon}</span>
+                  <span className="text-[11px] font-bold text-gray-850 dark:text-slate-200 shrink-0">
+                    {pill.title}
+                  </span>
                 </div>
               ))}
             </div>
