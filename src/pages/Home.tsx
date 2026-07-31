@@ -38,7 +38,7 @@ const ITEM = {
 
 export function Home({ onStart }: HomeProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 md:py-12 relative overflow-hidden bg-gradient-canvas">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 md:py-16 relative overflow-hidden bg-gradient-canvas">
       {/* Interactive ambient floating background glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -70,46 +70,49 @@ export function Home({ onStart }: HomeProps) {
       </div>
 
       <motion.div
-        className="w-full max-w-4xl z-10 flex flex-col items-stretch"
+        className="w-full max-w-6xl z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center"
         variants={CONTAINER}
         initial="hidden"
         animate="show"
       >
-        {/* Support Pill Badge */}
-        <motion.div variants={ITEM} className="flex justify-center mb-4">
-          <div className="
-            inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-            bg-primary-500/10 dark:bg-primary-500/10
-            border border-primary-500/20 dark:border-primary-500/20
-            backdrop-blur-md shadow-sm
-          ">
-            <span className="text-sm">🛡️</span>
-            <span className="text-xs font-bold text-primary-600 dark:text-primary-300 uppercase tracking-wider">
-              SafeSpace AI — You are safe here
-            </span>
-          </div>
-        </motion.div>
+        {/* Left Column: Hero Copy & CTA */}
+        <div className="col-span-1 md:col-span-6 flex flex-col items-start text-left space-y-6">
+          {/* Support Pill Badge */}
+          <motion.div variants={ITEM} className="flex justify-start">
+            <div className="
+              inline-flex items-center gap-2 px-4 py-1.5 rounded-full
+              bg-primary-500/10 dark:bg-primary-500/10
+              border border-primary-500/20 dark:border-primary-500/20
+              backdrop-blur-md shadow-sm
+            ">
+              <span className="text-sm">🛡️</span>
+              <span className="text-xs font-bold text-primary-600 dark:text-primary-300 uppercase tracking-wider">
+                SafeSpace AI — You are safe here
+              </span>
+            </div>
+          </motion.div>
 
-        {/* Hero Title */}
-        <motion.div variants={ITEM} className="text-center mb-6">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 leading-tight tracking-tight max-w-3xl mx-auto font-display">
-            Don't face the digital shadows alone. <br />
-            <span className="text-gradient">We are here to help. Just tell us.</span>
-          </h1>
-          <p className="text-gray-500 dark:text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+          {/* Hero Title */}
+          <motion.div variants={ITEM}>
+            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight tracking-tight font-display">
+              Don't face the <br />
+              digital shadows alone. <br />
+              <span className="text-gradient">We are here to help. <br />Just tell us.</span>
+            </h1>
+          </motion.div>
+
+          {/* Hero Subtitle */}
+          <motion.p variants={ITEM} className="text-gray-500 dark:text-slate-400 text-sm md:text-base leading-relaxed max-w-lg">
             SafeSpace AI provides an entirely anonymous, private sanctuary to evaluate online abuse, receive trauma-informed support, and generate secure incident logs. No tracking, no judgment. Just help.
-          </p>
-        </motion.div>
+          </motion.p>
 
-        {/* CTA Button Row (Above Fold) */}
-        <motion.div variants={ITEM} className="text-center mb-8 flex justify-center">
-          <div className="max-w-md w-full relative group">
-            {/* Glow backing */}
+          {/* CTA Button */}
+          <motion.div variants={ITEM} className="w-full max-w-sm relative group pt-2">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-45 group-hover:opacity-75 transition duration-300" />
             <motion.button
               onClick={onStart}
               className="
-                relative w-full py-3.5 px-10
+                relative w-full py-4 px-8
                 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500
                 text-white text-base md:text-lg font-bold rounded-full
                 shadow-xl transition-all duration-200
@@ -121,46 +124,43 @@ export function Home({ onStart }: HomeProps) {
             >
               Begin Secure Analysis 🛡️ →
             </motion.button>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Steps section — Horizontal Layout */}
-        <motion.div
-          variants={ITEM}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8"
-        >
+          {/* Trust Badges — Flat Row */}
+          <motion.div variants={ITEM} className="w-full pt-6 border-t border-gray-100/50 dark:border-slate-900/30">
+            <div className="flex flex-col gap-2.5">
+              {TRUST_PILLS.map((pill, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <span className="text-sm shrink-0">{pill.icon}</span>
+                  <span className="text-xs font-bold text-gray-800 dark:text-slate-200 shrink-0">{pill.title}</span>
+                  <span className="text-[10px] md:text-xs text-gray-400 dark:text-slate-400">— {pill.desc}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Column: Steps section — 2x2 Grid */}
+        <div className="col-span-1 md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
           {STEPS.map((step, i) => (
             <motion.div
               key={i}
-              className="glass-card p-4 flex flex-col items-center text-center relative overflow-hidden"
+              className="glass-card p-6 flex flex-col items-start relative overflow-hidden"
               variants={ITEM}
-              whileHover={{ y: -3, borderColor: 'rgba(59, 130, 246, 0.25)', scale: 1.01 }}
+              whileHover={{ y: -4, borderColor: 'rgba(59, 130, 246, 0.25)', scale: 1.01 }}
             >
-              <div className="shrink-0 w-8 h-8 rounded-lg bg-primary-500/10 text-primary-500 text-base flex items-center justify-center font-bold mb-2">
+              <div className="shrink-0 w-10 h-10 rounded-xl bg-primary-500/10 text-primary-500 text-lg flex items-center justify-center font-bold mb-3">
                 {step.icon}
               </div>
-              <h3 className="font-bold text-gray-900 dark:text-slate-100 text-xs mb-1">
+              <h3 className="font-bold text-gray-900 dark:text-slate-100 text-base mb-1.5">
                 {step.title}
               </h3>
-              <p className="text-gray-400 dark:text-slate-400 text-[10px] leading-relaxed">
+              <p className="text-gray-500 dark:text-slate-400 text-xs leading-relaxed">
                 {step.desc}
               </p>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Trust Badges — Flat Row */}
-        <motion.div variants={ITEM} className="pt-4 border-t border-gray-100/50 dark:border-slate-900/30">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
-            {TRUST_PILLS.map((pill, i) => (
-              <div key={i} className="flex items-center gap-1.5">
-                <span className="text-sm">{pill.icon}</span>
-                <span className="text-[11px] font-bold text-gray-800 dark:text-slate-200">{pill.title}</span>
-                <span className="text-[10px] text-gray-400 dark:text-slate-500">— {pill.desc}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </motion.div>
     </div>
   )
