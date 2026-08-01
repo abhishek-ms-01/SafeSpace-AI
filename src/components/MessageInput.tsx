@@ -5,14 +5,17 @@ interface MessageInputProps {
   onSubmit: (message: string) => void
   loading?: boolean
   placeholder?: string
+  /** Pre-populates the textarea (use with React key remount to trigger reliably) */
+  initialValue?: string
 }
 
 export function MessageInput({
   onSubmit,
   loading = false,
   placeholder = 'Paste the message or describe what happened...',
+  initialValue = '',
 }: MessageInputProps) {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState(initialValue)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,6 +42,11 @@ export function MessageInput({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Platform hint */}
+      <p className="text-xs text-gray-400 dark:text-slate-500 mb-2">
+        Paste messages from anywhere — Instagram DMs, WhatsApp, texts, emails, or any platform.
+      </p>
+
       {/* Textarea */}
       <div className="relative">
         <textarea

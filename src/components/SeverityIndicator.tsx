@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import type { SeverityAssessment } from '../types'
+import { TriageFlagBadge } from './TriageFlagBadge'
+import { getTriageLevel } from '../utils/severityColors'
 
 interface SeverityIndicatorProps {
   assessment: SeverityAssessment | null
@@ -79,6 +81,11 @@ export function SeverityIndicator({ assessment }: SeverityIndicatorProps) {
             Score: {assessment.severity_score}/10 · Safety index: {assessment.safety_score}/100
           </p>
         </div>
+      </div>
+
+      {/* Triage flag badge — additive, placed right below the severity label */}
+      <div className="mb-4">
+        <TriageFlagBadge triage={getTriageLevel(assessment.severity_score, assessment.severity_level)} />
       </div>
 
       {/* Risk factors */}

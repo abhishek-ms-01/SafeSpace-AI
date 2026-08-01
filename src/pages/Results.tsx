@@ -95,7 +95,7 @@ export function Results({ threatType, severity, onBack }: ResultsProps) {
             />
             <div>
               <h2 className="text-base font-semibold text-gray-800 dark:text-white mb-4">🛡 Safety Resources</h2>
-              <ResourcesPanel resources={resources} />
+              <ResourcesPanel resources={resources} threatType={threatType} />
             </div>
           </motion.div>
         )}

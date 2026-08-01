@@ -10,6 +10,7 @@
 import { useState, useCallback, useRef } from 'react'
 import { chatWithCompanion } from '../api/anthropic'
 import type { ChatMessage } from '../types'
+import { getErrorMessage } from '../utils/errorHandler'
 
 interface UseChatReturn {
   // State
@@ -97,7 +98,7 @@ export function useChat(): UseChatReturn {
       }
       updateHistory(prev => [...prev, assistantMsg])
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Failed to send message.'
+      const msg = getErrorMessage(err, 'Failed to send message.')
       setError(msg)
       console.error('[useChat] sendMessage failed:', err)
 

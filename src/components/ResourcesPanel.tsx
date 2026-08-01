@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion'
 import type { SafetyResources } from '../types'
+import type { ThreatType } from '../types'
+import { RightsSnippet } from './RightsSnippet'
 
 interface ResourcesPanelProps {
   resources: SafetyResources | null
+  /** When provided, renders a static legal/rights snippet below the AI resources */
+  threatType?: ThreatType
 }
 
 const STAGGER = { animate: { transition: { staggerChildren: 0.08 } } }
 const ITEM = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 } }
 
-export function ResourcesPanel({ resources }: ResourcesPanelProps) {
+export function ResourcesPanel({ resources, threatType }: ResourcesPanelProps) {
   if (!resources) return null
 
   return (
@@ -97,6 +101,13 @@ export function ResourcesPanel({ resources }: ResourcesPanelProps) {
               </motion.li>
             ))}
           </ul>
+        </motion.div>
+      )}
+
+      {/* Know Your Rights — static legal snippet, additive */}
+      {threatType && (
+        <motion.div variants={ITEM}>
+          <RightsSnippet threatType={threatType} />
         </motion.div>
       )}
     </motion.div>

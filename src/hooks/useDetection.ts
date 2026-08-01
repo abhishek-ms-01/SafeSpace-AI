@@ -11,6 +11,7 @@
 import { useState, useCallback } from 'react'
 import { detectThreat, assessSeverity } from '../api/anthropic'
 import type { DetectionResult, SeverityAssessment } from '../types'
+import { getErrorMessage } from '../utils/errorHandler'
 
 interface UseDetectionReturn {
   // State
@@ -57,7 +58,7 @@ export function useDetection(): UseDetectionReturn {
         setSeverityAssessment(severity)
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'An unexpected error occurred.'
+      const message = getErrorMessage(err)
       setError(message)
       console.error('[useDetection] analyzeMessage failed:', err)
     } finally {

@@ -1,12 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageInput } from '../components/MessageInput'
+import { DemoModeSelector } from '../components/DemoModeSelector'
 import { ThreatDetectionPanel } from '../components/ThreatDetectionPanel'
 import { SeverityIndicator } from '../components/SeverityIndicator'
 import { ChatCompanion } from '../components/ChatCompanion'
 import { useDetection } from '../hooks/useDetection'
 import { useChat } from '../hooks/useChat'
 import type { ThreatType, SeverityLevel } from '../types'
+import type { DemoScenario } from '../data/demoScenarios'
 
 interface DetectorProps {
   onCompleteAnalysis: (threatType: ThreatType, severity: SeverityLevel) => void
@@ -21,6 +23,15 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
 
   const { chatHistory, loading: chatLoading, startChat, sendMessage } = useChat()
 
+  // ── Demo mode state ──
+  const [activeDemo, setActiveDemo] = useState<DemoScenario | null>(null)
+  const [demoKey, setDemoKey]       = useState(0)
+
+  const handleSelectDemo = (scenario: DemoScenario) => {
+    setActiveDemo(scenario)
+    setDemoKey(k => k + 1)
+  }
+
   useEffect(() => {
     if (detectionResult?.threat_detected && chatHistory.length === 0) startChat()
   }, [detectionResult, chatHistory.length, startChat])
@@ -28,6 +39,11 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
   const handleContinue = () => {
     if (detectionResult && severityAssessment)
       onCompleteAnalysis(detectionResult.threat_type, severityAssessment.severity_level)
+  }
+
+  const handleReset = () => {
+    reset()
+    setActiveDemo(null)
   }
 
   const showResults = detectionResult !== null
@@ -66,8 +82,23 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
             >
               <div className="glass-card p-8 w-full max-w-2xl border border-white/5 bg-white/[0.02] rounded-2xl">
                 <h2 className="text-base font-semibold text-gray-800 dark:text-white mb-1">What happened?</h2>
-                <p className="text-sm text-gray-500 dark:text-slate-400 mb-5">Paste the harassing message, or describe the situation in your own words.</p>
-                <MessageInput onSubmit={analyzeMessage} loading={detectLoading} />
+                <p className="text-sm text-gray-500 dark:text-slate-400 mb-4">Paste the harassing message, or describe the situation in your own words.</p>
+
+                <DemoModeSelector onSelectScenario={handleSelectDemo} activeDemoId={activeDemo?.id} />
+
+                {activeDemo && (
+                  <div className="flex items-center gap-1.5 mb-3 px-2.5 py-1 w-fit rounded-full bg-indigo-500/10 border border-indigo-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
+                    <span className="text-[11px] font-bold text-indigo-300">Demo data loaded — {activeDemo.label}</span>
+                  </div>
+                )}
+
+                <MessageInput
+                  key={demoKey}
+                  onSubmit={analyzeMessage}
+                  loading={detectLoading}
+                  initialValue={activeDemo?.messageText ?? ''}
+                />
                 {detectError && (
                   <motion.p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     ⚠ {detectError}
@@ -108,7 +139,7 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
               <motion.div className="shrink-0 flex items-center justify-between pt-1"
                 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
               >
-                <motion.button onClick={reset}
+                <motion.button onClick={handleReset}
                   className="px-5 py-2.5 bg-gray-200 dark:bg-slate-800 text-gray-700 dark:text-slate-200 font-bold rounded-full hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors text-sm"
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                 >
@@ -146,7 +177,6 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
         </div>
 
         <AnimatePresence mode="wait">
-          {/* Mobile Input */}
           {!showResults && (
             <motion.div key="m-input"
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
@@ -155,7 +185,22 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
               <div className="glass-card p-5 rounded-2xl border border-white/5 bg-white/[0.02] mb-4">
                 <h2 className="text-base font-semibold text-gray-800 dark:text-white mb-1">What happened?</h2>
                 <p className="text-sm text-slate-400 mb-4">Describe the situation or paste the message below.</p>
-                <MessageInput onSubmit={analyzeMessage} loading={detectLoading} />
+
+                <DemoModeSelector onSelectScenario={handleSelectDemo} activeDemoId={activeDemo?.id} />
+
+                {activeDemo && (
+                  <div className="flex items-center gap-1.5 mb-3 px-2.5 py-1 w-fit rounded-full bg-indigo-500/10 border border-indigo-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />
+                    <span className="text-[11px] font-bold text-indigo-300">Demo data loaded — {activeDemo.label}</span>
+                  </div>
+                )}
+
+                <MessageInput
+                  key={`m-${demoKey}`}
+                  onSubmit={analyzeMessage}
+                  loading={detectLoading}
+                  initialValue={activeDemo?.messageText ?? ''}
+                />
                 {detectError && (
                   <p className="mt-3 text-xs text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
                     ⚠ {detectError}
@@ -165,18 +210,12 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
             </motion.div>
           )}
 
-          {/* Mobile Results */}
           {showResults && (
             <motion.div key="m-results" className="flex flex-col gap-4"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
             >
-              {/* Analysis panel */}
               <ThreatDetectionPanel result={detectionResult} loading={detectLoading} />
-
-              {/* Severity panel */}
               {severityAssessment && <SeverityIndicator assessment={severityAssessment} />}
-
-              {/* Chat companion */}
               {threatDetected && (
                 <motion.div className="glass-card rounded-2xl border border-white/5 dark:border-slate-800/50 overflow-hidden flex flex-col"
                   style={{ minHeight: '340px' }}
@@ -198,7 +237,7 @@ export function Detector({ onCompleteAnalysis, onBack }: DetectorProps) {
         {/* Mobile sticky bottom action bar */}
         {showResults && (
           <div className="fixed bottom-0 left-0 right-0 z-40 px-4 py-3 bg-gray-950/95 backdrop-blur border-t border-white/[0.06] flex items-center justify-between gap-3">
-            <motion.button onClick={reset}
+            <motion.button onClick={handleReset}
               className="flex-1 py-2.5 bg-slate-800 text-slate-200 font-bold rounded-full text-sm hover:bg-slate-700 transition-colors"
               whileTap={{ scale: 0.97 }}
             >

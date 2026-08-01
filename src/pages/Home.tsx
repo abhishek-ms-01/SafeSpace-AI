@@ -106,6 +106,24 @@ export function Home({ onStart }: HomeProps) {
             SafeSpace AI provides an entirely anonymous, private sanctuary to evaluate online abuse, receive trauma-informed support, and generate secure incident logs. No tracking, no judgment. Just help.
           </motion.p>
 
+          {/* Impact Stat Block */}
+          <motion.div variants={ITEM} className="w-full">
+            <div className="glass-card px-5 py-4 grid grid-cols-3 divide-x divide-white/[0.06]">
+              <div className="flex flex-col items-center text-center px-3 first:pl-0 last:pr-0">
+                <span className="text-2xl font-black text-gradient leading-none mb-1">1 in 3</span>
+                <span className="text-[10px] text-slate-400 leading-snug">people experience online harassment</span>
+              </div>
+              <div className="flex flex-col items-center text-center px-3">
+                <span className="text-2xl font-black text-gradient leading-none mb-1">73%</span>
+                <span className="text-[10px] text-slate-400 leading-snug">of victims never report the incident</span>
+              </div>
+              <div className="flex flex-col items-center text-center px-3 first:pl-0 last:pr-0">
+                <span className="text-2xl font-black text-gradient leading-none mb-1">40%</span>
+                <span className="text-[10px] text-slate-400 leading-snug">experience severe forms like stalking or threats</span>
+              </div>
+            </div>
+          </motion.div>
+
           {/* CTA Button */}
           <motion.div variants={ITEM} className="w-full max-w-sm relative group pt-2">
             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-45 group-hover:opacity-75 transition duration-300" />
