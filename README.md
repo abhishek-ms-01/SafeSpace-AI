@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=soft&color=1a1c29,6366f1,a855f7&height=220&section=header&text=SafeSpace%20AI&fontSize=90&fontColor=ffffff&fontAlignY=38&desc=Anonymous%20Sanctuary%20and%20Incident%20Analyzer&descAlignY=60&descSize=22&animation=fadeIn"/>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1c29,50:6366f1,100:a855f7&height=220&section=header&text=SafeSpace%20AI&fontSize=90&fontColor=ffffff&fontAlignY=38&desc=Anonymous%20Sanctuary%20and%20Incident%20Analyzer&descAlignY=60&descSize=22&animation=fadeIn"/>
 
 <br/>
 
