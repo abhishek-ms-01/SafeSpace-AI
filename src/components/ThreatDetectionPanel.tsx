@@ -62,7 +62,7 @@ function Skeleton() {
 export function ThreatDetectionPanel({ result, loading = false }: ThreatDetectionPanelProps) {
   if (loading) {
     return (
-      <div className="glass-card p-6 border border-white/5 dark:border-slate-800/50 backdrop-blur-md relative overflow-hidden bg-slate-950/20 shadow-xl rounded-2xl h-full">
+      <div className="glass-card p-6 border border-white/5 dark:border-slate-800/50 backdrop-blur-md relative overflow-hidden bg-slate-950/20 shadow-xl rounded-2xl min-h-full">
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 flex items-center gap-2">
           <motion.span
             className="block w-4 h-4 border-2 border-primary-400 border-t-transparent rounded-full"
@@ -84,7 +84,7 @@ export function ThreatDetectionPanel({ result, loading = false }: ThreatDetectio
 
   return (
     <motion.div
-      className="glass-card p-6 border border-white/5 dark:border-slate-800/50 backdrop-blur-md relative overflow-hidden bg-slate-950/20 shadow-xl rounded-2xl h-full"
+      className="glass-card p-6 border border-white/5 dark:border-slate-800/50 backdrop-blur-md relative overflow-hidden bg-slate-950/20 shadow-xl rounded-2xl min-h-full"
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
